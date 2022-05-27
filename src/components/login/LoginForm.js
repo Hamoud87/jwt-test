@@ -17,7 +17,7 @@ export default function LoginForm() {
 	const [submitting, setSubmitting] = useState(false);
 	const [loginError, setLoginError] = useState(null);
 
-	const { register, handleSubmit, errors } = useForm({
+	const { register, handleSubmit, formState:{ errors }} = useForm({
 		resolver: yupResolver(schema),
 	});
 
@@ -44,12 +44,12 @@ export default function LoginForm() {
 				{loginError && <FormError>{loginError}</FormError>}
 				<fieldset disabled={submitting}>
 					<div>
-						<input name="username" placeholder="Username" ref={register} />
+						<input name="username" placeholder="Username" {...register("username")} />
 						{errors.username && <FormError>{errors.username.message}</FormError>}
 					</div>
 
 					<div>
-						<input name="password" placeholder="Password" ref={register} type="password" />
+						<input name="password" placeholder="Password" {...register("username")} type="password" />
 						{errors.password && <FormError>{errors.password.message}</FormError>}
 					</div>
 					<button>{submitting ? "Loggin in..." : "Login"}</button>
